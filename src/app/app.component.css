@@ -1,0 +1,22 @@
+.menuWrapper {
+  width: 20%;
+  background-color: #cbd0d0;
+  border-right: #fff solid thin;
+}
+.wrapper {
+  width: 80%;
+  height: 100%;
+  text-align: center;
+  overflow: hidden;
+}
+.ro {
+  left: -50%;
+  margin: auto 0;
+  height: 100%;
+}
+.scr-container {
+  display: flex;
+  flex-direction: row;
+  height: 95%;
+  margin-bottom: 0;
+}
