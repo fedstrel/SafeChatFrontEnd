@@ -1,0 +1,43 @@
+<div *ngIf="user" class="container">
+  <div>
+    <div class="rec">
+      <div class="textContainer">
+        <p>Name</p>
+      </div>
+      <div class="textContainer">
+        <p>{{user.firstname + " " + user.lastname}}</p>
+      </div>
+    </div>
+
+    <div class="rec">
+      <div class="textContainer">
+        <p>Username</p>
+      </div>
+      <div class="textContainer">
+        <p>{{user.username}}</p>
+      </div>
+    </div>
+
+    <div class="rec">
+      <div class="textContainer">
+        <p>E-mail</p>
+      </div>
+      <div class="textContainer">
+        <p>{{user.email}}</p>
+      </div>
+    </div>
+
+    <div *ngIf="user.info" class="infoRec">
+      <div class="textContainer">
+        Info
+      </div>
+      <div class="infoRecText">
+        <p>{{user.info}}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="buttonContainer">
+    <button (click)="deleteAccount()">Delete account</button>
+  </div>
+</div>

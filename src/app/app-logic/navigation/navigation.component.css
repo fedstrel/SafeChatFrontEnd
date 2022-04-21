@@ -1,0 +1,25 @@
+.routerButtonLeft {
+  cursor: pointer;
+  font-size: 14pt;
+  margin-top: 5px;
+  margin-left: 20px;
+}
+
+.routerButtonRight {
+  cursor: pointer;
+  font-size: 14pt;
+  margin-top: 5px;
+  margin-right: 20px;
+}
+
+.spacer{
+  flex: 1 1 auto;
+}
+
+.mat-toolbar{
+  background: #b1b7b7;
+  color: #000;
+  height: 5%;
+  min-height: 50px;
+  outline: #fff solid thin;
+}

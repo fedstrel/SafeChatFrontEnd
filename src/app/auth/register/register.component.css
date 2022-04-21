@@ -1,0 +1,47 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.inputClass {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.registration-page {
+  text-align: center;
+  margin-top: 10rem;
+  width: 40%;
+  background-color: #1d7d82;
+  min-width: 300px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  left: 50%;
+}
+
+.controls{
+  display: flex;
+  justify-content: space-between;
+  margin: 5%;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+}
+
+button {
+  width: 10%;
+  padding: 0;
+}
+
+input {
+  background-color: #fff;
+  color: #000;
+  padding-left: 2px;
+  padding-right: 2px;
+}

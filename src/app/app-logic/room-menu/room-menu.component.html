@@ -1,0 +1,7 @@
+<div class="container">
+  <div class="roomCard" *ngFor="let room of rooms">
+    <div class="room" (click)="navigateToRoom(room.id)">
+      <p>{{room.name}}</p>
+    </div>
+  </div>
+</div>

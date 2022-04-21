@@ -1,0 +1,22 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+
+<mat-toolbar color="primary">
+  <span routerLink="/profile" class="routerButtonLeft">Profile</span>
+
+  <span class="spacer"></span>
+
+  <div *ngIf="!isLoggedIn; then loginBlock else logoutBlock"></div>
+
+  <ng-template #loginBlock>
+    <div routerLink="/login" class="routerButtonRight">
+      <p>Login</p>
+    </div>
+  </ng-template>
+  <ng-template #logoutBlock>
+    <button (click)="logout()" class="routerButtonRight">
+      <mat-icon color="primary">logout</mat-icon>
+    </button>
+  </ng-template>
+
+</mat-toolbar>

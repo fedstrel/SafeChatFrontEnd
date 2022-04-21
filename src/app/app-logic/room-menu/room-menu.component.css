@@ -1,0 +1,9 @@
+.container {
+  min-height: 200px;
+}
+.roomCard {
+  border-bottom: #fff solid thin;
+}
+.room {
+  margin: auto 5px;
+}
