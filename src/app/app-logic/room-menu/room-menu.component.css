@@ -5,5 +5,19 @@
   border-bottom: #fff solid thin;
 }
 .room {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   margin: auto 5px;
+  cursor: pointer;
+}
+
+p {
+  overflow: hidden;
+}
+
+button {
+  cursor: pointer;
+  margin: 2px 1px 2px auto;
+  border: #000 solid 1px;
 }

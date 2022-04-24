@@ -16,6 +16,7 @@ import {MatTooltipModule} from "@angular/material/tooltip";
 import {autherrorInterceptorProviders} from "./helper/error-interceptor.service";
 import { RoomMenuComponent } from './app-logic/room-menu/room-menu.component';
 import { RoomComponent } from './app-logic/room/room.component';
+import { RoomSettingsComponent } from './app-logic/room-settings/room-settings.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { RoomComponent } from './app-logic/room/room.component';
     ProfileComponent,
     NavigationComponent,
     RoomMenuComponent,
-    RoomComponent
+    RoomComponent,
+    RoomSettingsComponent
   ],
   imports: [
     BrowserModule,

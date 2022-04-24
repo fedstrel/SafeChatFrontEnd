@@ -35,6 +35,9 @@ export class RoomMenuComponent implements OnInit {
 
   navigateToRoom(roomId: number): void {
     this.router.navigate(['/room', roomId]);
-    window.location.reload();
+  }
+
+  navigateToRoomSettings(roomId: number): void {
+    this.router.navigate(['/room-settings', roomId]);
   }
 }

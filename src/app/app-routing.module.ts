@@ -4,12 +4,14 @@ import {LoginComponent} from "./auth/login/login.component";
 import {RegisterComponent} from "./auth/register/register.component";
 import {ProfileComponent} from "./app-logic/profile/profile.component";
 import {RoomComponent} from "./app-logic/room/room.component";
+import {RoomSettingsComponent} from "./app-logic/room-settings/room-settings.component";
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'profile', component: ProfileComponent},
-  {path: 'room/:id', component: RoomComponent}
+  {path: 'room/:id', component: RoomComponent},
+  {path: 'room-settings/:id', component: RoomSettingsComponent}
 ];
 
 @NgModule({

@@ -27,14 +27,11 @@ export class ProfileComponent implements OnInit {
   }
 
   deleteAccount() {
-    console.log("*");
     this.userService.deleteCurUser()
       .subscribe(() => {
         this.tokenService.logOut();
       });
-    console.log("**");
     this.authMonitoringService.userLoggedOut("The account as been deleted :_(");
-    console.log("***");
     this.router.navigate(['/']);
   }
 }

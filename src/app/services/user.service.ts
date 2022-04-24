@@ -12,7 +12,6 @@ export class UserService {
   constructor(private httpclient: HttpClient) { }
 
   getCurrentUser(): Observable<any> {
-    console.log("service moment");
     return this.httpclient.get(USER_API + 'cur');
   }
 

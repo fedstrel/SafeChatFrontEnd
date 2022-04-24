@@ -25,7 +25,7 @@ export class TokenStorageService {
   }
 
   public getUser(): any {
-    return JSON.parse(<string>sessionStorage.getItem(KEY_USER));
+    return (<string>sessionStorage.getItem(KEY_USER)).split(' ')[1];
   }
 
   logOut(): void {
