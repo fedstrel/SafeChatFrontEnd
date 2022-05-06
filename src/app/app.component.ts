@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthMonitoringService} from "./services/auth-monitoring.service";
+import {TokenStorageService} from "./services/token-storage.service";
 
 @Component({
   selector: 'app-root',
@@ -8,9 +9,11 @@ import {AuthMonitoringService} from "./services/auth-monitoring.service";
 })
 export class AppComponent implements OnInit{
 
-  isAuthenticated: boolean = false;
+  isAuthenticated: boolean;
 
-  constructor(private authMonitoringService: AuthMonitoringService) {
+  constructor(private authMonitoringService: AuthMonitoringService,
+              private tokenStorageService: TokenStorageService) {
+    this.isAuthenticated = !!this.tokenStorageService.getUser();
   }
 
   ngOnInit(): void {

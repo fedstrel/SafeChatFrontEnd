@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
 import {TokenStorageService} from "../../services/token-storage.service";
-import {NotificationService} from "../../services/notification.service";
 import {Router} from "@angular/router";
 import {AuthMonitoringService} from "../../services/auth-monitoring.service";
 
@@ -18,7 +17,6 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private authMonitoringService: AuthMonitoringService,
     private tokenService: TokenStorageService,
-    private notificationService: NotificationService,
     private router: Router,
     private formBuilder: FormBuilder
   ) {
@@ -54,10 +52,6 @@ export class LoginComponent implements OnInit {
         this.authMonitoringService.userAuthenticated("user authenticated");
         this.router.navigate(['/profile']).then((value) => {console.log(value)});
         window.location.reload();
-      },
-      error => {
-        console.log(error);
-        this.notificationService.showSnackBar(error.message);
       });
   }
 }

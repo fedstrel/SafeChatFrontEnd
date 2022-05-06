@@ -1,0 +1,79 @@
+*{
+  font-size: 14pt;
+  color: #fff;
+}
+
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.componentContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.confirmedUsersContainer {
+  width: 50%;
+  border: #fff solid 2px;
+  border-radius: 30px;
+}
+
+.searchAndHintContainer {
+  width: 50%;
+}
+
+.searchContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: auto 2px;
+}
+
+.userContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 5px 5px;
+  border: #fff solid 1px;
+  border-radius: 30px;
+}
+
+.cardButton {
+  width: 20%;
+}
+
+button {
+  color: #1d7555;
+  width: 100%;
+  border: none;
+  border-radius: 30px;
+  height: 50px;
+  font-weight: bold;
+  padding-top: -50px;
+  cursor: pointer;
+  margin-bottom: 0;
+}
+
+input {
+  color: #000;
+  margin: 2px 1px;
+  border: #000 solid 1px;
+  padding-left: 15px;
+  border-radius: 30px;
+  width: 80%;
+  overflow: hidden;
+}
+
+h3 {
+  margin: 10px 0;
+}
+p {
+  font-size: 12pt;
+  width: 80%;
+  text-align: left;
+  margin-left: 15px;
+}

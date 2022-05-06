@@ -1,0 +1,54 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: space-between;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.rec {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom: #fff solid 1px;
+}
+
+.textContainer {
+  color: #fff;
+  margin: auto 5px;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  align-content: end;
+}
+
+button {
+  color: #750505;
+  width: 100%;
+  border: none;
+  height: 50px;
+  font-size: 14pt;
+  font-weight: bold;
+  padding-top: -50px;
+  cursor: pointer;
+}
+
+.addUsers {
+  color: #1d7555;
+  border-right: #b1b7b7 solid 1px;
+}
+
+.addUsersComp {
+  border: #fff solid 3px;
+  border-radius: 30px;
+  height: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0 2px 0 2px;
+  min-height: 200px;
+}

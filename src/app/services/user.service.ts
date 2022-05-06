@@ -27,6 +27,10 @@ export class UserService {
     return this.httpclient.get(USER_API + 'room/' + roomId);
   }
 
+  getAllUsersContainingNameAndNotInTheRoom(roomId: number, name: string): Observable<any> {
+    return this.httpclient.get(USER_API + 'room/' + roomId + '/search=' + name);
+  }
+
   updateUser(user: any): Observable<any> {
     return this.httpclient.post(USER_API + 'update', user);
   }

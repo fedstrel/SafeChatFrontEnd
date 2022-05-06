@@ -1,0 +1,37 @@
+<div class="pageContainer">
+  <div>
+    <h1>Add users</h1>
+
+    <div class="componentContainer">
+      <div class="searchAndHintContainer">
+        <div class="searchContainer">
+          <input type="text" #searchField>
+          <button style="width: 20%" (click)="showHintByName(searchField.value)">
+            <mat-icon>search</mat-icon>
+          </button>
+        </div>
+        <div *ngFor="let user of hintUserList">
+          <div class="userContainer">
+            <p>{{user.firstname + ' ' + user.lastname}}</p>
+            <button class="cardButton" (click)="addUserIdToList(user)">
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="confirmedUsersContainer">
+        <h3>Confirmed users</h3>
+        <div *ngFor="let userId of userIdList">
+          <div class="userContainer">
+            <p>{{userId}}</p>
+            <button class="cardButton" (click)="deleteUserIdFromList(userId)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button (click)="confirmAddition()">Confirm</button>
+</div>

@@ -2,7 +2,15 @@
       rel="stylesheet">
 
 <mat-toolbar color="primary">
-  <span routerLink="/profile" class="routerButtonLeft">Profile</span>
+  <div *ngIf="isLoggedIn; then profileBlock else safeChatBlock"></div>
+
+  <ng-template #profileBlock>
+    <span routerLink="/profile" class="routerButtonLeft">Profile</span>
+  </ng-template>
+
+  <ng-template #safeChatBlock>
+    <span routerLink="/" class="routerButtonLeft">SafeChat</span>
+  </ng-template>
 
   <span class="spacer"></span>
 

@@ -31,6 +31,10 @@ export class RoomService {
     return this.httpclient.get(ROOM_API + 'user/' + userId + '/admin/' + roomId);
   }
 
+  getIfUserIsPresentInTheRoom(userId: number, roomId: number): Observable<any> {
+    return this.httpclient.get(ROOM_API + 'user/' + userId + '/present/' + roomId);
+  }
+
   createRoom(userId: number, roomDTO: any): Observable<any>  {
     return this.httpclient.post(ROOM_API + 'create/' + userId, roomDTO);
   }
@@ -44,6 +48,10 @@ export class RoomService {
   }
 
   deleteRoom(roomId: number, userId: number): Observable<any> {
-    return this.httpclient.delete(ROOM_API + roomId);
+    return this.httpclient.delete(ROOM_API + roomId + '/user/' + userId);
+  }
+
+  leaveRoom(roomId: number): Observable<any> {
+    return this.httpclient.post(ROOM_API + 'leave/' + roomId, '');
   }
 }

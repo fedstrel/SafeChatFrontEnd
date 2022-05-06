@@ -1,1 +1,49 @@
-<p>room works!</p>
+<h1>{{curRoom ? curRoom.name : ""}}</h1>
+<div class="allMessagesContainer" id="allMessagesContainer">
+  <div *ngFor = "let message of oldRoomMessages">
+    <div *ngIf="message.user.id == decodedToken.id; then rightBlock else leftBlock"></div>
+      <ng-template #rightBlock>
+        <div class="mesWrapperRight">
+          <div class="mesContainer">
+            <p class="sender">{{message.user.firstname + " " + message.user.lastname}}:</p>
+            <p class="message">{{message.text}}</p>
+          </div>
+        </div>
+      </ng-template>
+
+      <ng-template #leftBlock>
+        <div class="mesWrapperLeft">
+          <div class="mesContainer">
+            <p class="sender">{{message.user.firstname + " " + message.user.lastname}}:</p>
+            <p class="message">{{message.text}}</p>
+          </div>
+        </div>
+      </ng-template>
+  </div>
+
+
+  <div *ngFor = "let message of roomMessages">
+    <div *ngIf="message.senderId == decodedToken.id; then rrightBlock else lleftBlock"></div>
+      <ng-template #rrightBlock>
+        <div class="mesWrapperRight">
+          <div class="mesContainer">
+            <p class="sender">{{message.senderName}}:</p>
+            <p class="message">{{message.text}}</p>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template #lleftBlock>
+        <div class="mesWrapperLeft">
+          <div class="mesContainer">
+            <p class="sender">{{message.senderName}}:</p>
+            <p class="message">{{message.text}}</p>
+          </div>
+        </div>
+      </ng-template>
+  </div>
+</div>
+
+<div class="inputContainer">
+  <input type="text" #mesInput [value]="inputValue">
+  <button (click)="sendMessage(mesInput.value)">Send</button>
+</div>

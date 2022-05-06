@@ -1,0 +1,58 @@
+<div *ngIf="roomLoaded | async" class="container">
+  <div>
+    <div class="rec">
+      <div class="textContainer">
+        <p>Name</p>
+      </div>
+      <div class="textContainer">
+        <p>{{room.name}}</p>
+      </div>
+    </div>
+
+    <div class="rec">
+      <div class="textContainer">
+        <p>Creation date</p>
+      </div>
+      <div class="textContainer">
+        <p>{{room.creationDate | date: 'dd.MM.YY'}}</p>
+      </div>
+    </div>
+
+    <div class="rec">
+      <div class="textContainer">
+        <p>Publicity type</p>
+      </div>
+      <div class="textContainer">
+        <p>{{extractNameFromType(room.publicityType.toString())}}</p>
+      </div>
+    </div>
+
+    <div class="rec">
+      <div class="textContainer">
+        <p>Room type</p>
+      </div>
+      <div class="textContainer">
+        <p>{{extractNameFromType(room.roomType.toString())}}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="addUsersComp" *ngIf="showAddUsers">
+    <app-add-users style="height: 100%;" [curRoom]="room" ></app-add-users>
+  </div>
+
+  <div *ngIf="admin; then deleteBlock else leaveBlock"></div>
+
+  <ng-template #deleteBlock>
+    <div class="buttonContainer">
+      <button class="addUsers" (click)="addUsers()">{{userButtonName}}</button>
+      <button (click)="deleteRoom()">Delete room</button>
+    </div>
+  </ng-template>
+
+  <ng-template #leaveBlock>
+    <div class="buttonContainer">
+      <button (click)="leaveRoom()">Leave room</button>
+    </div>
+  </ng-template>
+</div>

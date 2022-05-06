@@ -1,0 +1,43 @@
+<div class="wrapper">
+  <div class="page">
+
+    <h2>New room</h2>
+
+    <form [formGroup]="roomForm">
+      <div class="container">
+        <div class="inputClass">
+          <input matInput formControlName="name" placeholder="Name">
+        </div>
+
+        <div class="inputClass">
+          <select formControlName="publicityType">
+            <option value="0">Public</option>
+            <option value="1">Closed</option>
+            <option value="2">Private</option>
+          </select>
+        </div>
+
+        <div class="inputClass">
+          <select formControlName="roomType">
+            <option value="0">Dialog</option>
+            <option value="1">Channel</option>
+            <option value="2">Group</option>
+          </select>
+        </div>
+
+        <div class="controls">
+          <button [disabled]="roomForm.invalid"
+                  (click)="submitDataToServer()"
+                  mat-flat-button color="primary">
+            Create
+          </button>
+          <button mat-flat-button
+                  (click)="navigateToProfile()"
+                  color="primary">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

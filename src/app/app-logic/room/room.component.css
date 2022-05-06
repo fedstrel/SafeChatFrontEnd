@@ -1,0 +1,60 @@
+.allMessagesContainer {
+  display: flex;
+  flex-direction: column;
+  height: 90%;
+  overflow: scroll;
+  overflow-x: hidden;
+  scrollbar-width: none;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.inputContainer {
+  height: 10%;
+  min-height: 90px;
+}
+
+.mesWrapperLeft {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.mesWrapperRight {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.mesContainer {
+  border-radius: 25px;
+  border: #fff solid 2px;
+  background-color: #195d62;
+  text-align: left;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin: 5px 2px;
+  width: fit-content;
+  max-width: 50%;
+}
+
+.sender {
+  color: #b1b7b7;
+  font-size: 12pt;
+}
+
+.message {
+  font-size: 14pt;
+}
+
+p {
+  margin: 3px auto;
+  color: #fff;
+  overflow-wrap: break-word;
+}
+
+h1 {
+  margin: 6px auto;
+}

@@ -1,0 +1,21 @@
+.searchContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: auto 2px;
+  height: 50px;
+}
+
+button {
+  cursor: pointer;
+  margin: 2px 4px 2px auto;
+  border: #000 solid 1px;
+}
+
+input {
+  margin: 2px 1px 2px 1px;
+  font-size: 14pt;
+  border: #000 solid 1px;
+  width: 60%;
+  overflow: hidden;
+}

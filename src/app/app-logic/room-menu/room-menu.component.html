@@ -1,9 +1,21 @@
 <div class="container">
+  <div class="roomCard">
+    <app-room-search style="height: 50px;" [curUser]="curUser"></app-room-search>
+  </div>
   <div class="roomCard" *ngFor="let room of rooms">
     <div class="room">
       <p (click)="navigateToRoom(room.id)">{{room.name}}</p>
       <button mat-flat-button (click)="navigateToRoomSettings(room.id)">
         <mat-icon>settings</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <div class="roomCard" *ngFor="let room of searchRooms">
+    <div class="room">
+      <p>{{room.name}}</p>
+      <button mat-flat-button (click)="addRoom(room.id)">
+        <mat-icon>add</mat-icon>
       </button>
     </div>
   </div>

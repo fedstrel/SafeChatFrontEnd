@@ -1,0 +1,16 @@
+<div class="searchContainer">
+  <input type="text" (input)="changeEmpty(searchField.value)" #searchField>
+  <div *ngIf="!searchEmpty; then addBlock else searchBlock"></div>
+
+  <ng-template #searchBlock>
+    <button mat-flat-button (click)="updateRoomList(searchField.value)">
+      <mat-icon>search</mat-icon>
+    </button>
+  </ng-template>
+
+  <ng-template #addBlock>
+    <button mat-flat-button (click)="navigateToCreateRoom()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </ng-template>
+</div>
