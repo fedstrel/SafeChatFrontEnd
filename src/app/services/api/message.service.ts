@@ -11,16 +11,11 @@ export class MessageService {
 
   constructor(private httpclient: HttpClient) { }
 
-  //test this
-  getMessagesByRoomPageable(roomId: number): Observable<any> {
-    return this.httpclient.get(MESSAGE_API + 'room/' + roomId);
+  getMessagesByRoomPageable(roomId: number, pageNumber: number): Observable<any> {
+    return this.httpclient.get(MESSAGE_API + 'room/' + roomId + '/page=' + pageNumber);
   }
 
   getAllMessagesByRoom(roomId: number): Observable<any> {
     return this.httpclient.get(MESSAGE_API + 'room/all/' + roomId);
-  }
-
-  createMessage(roomId: number, userId: number, messageDTO: any): Observable<any> {
-    return this.httpclient.post(MESSAGE_API + 'create/' + roomId + '/' + userId, messageDTO);
   }
 }

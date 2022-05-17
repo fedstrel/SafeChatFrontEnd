@@ -23,7 +23,7 @@
 
 
   <div *ngFor = "let message of roomMessages">
-    <div *ngIf="message.senderId == decodedToken.id; then rrightBlock else lleftBlock"></div>
+    <div *ngIf="message.senderId == decodedToken.id || message.senderId == 1; then rrightBlock else lleftBlock"></div>
       <ng-template #rrightBlock>
         <div class="mesWrapperRight">
           <div class="mesContainer">
@@ -43,7 +43,9 @@
   </div>
 </div>
 
-<div class="inputContainer">
-  <input type="text" #mesInput [value]="inputValue">
-  <button (click)="sendMessage(mesInput.value)">Send</button>
+<div class="inputContainerWrapper">
+  <div class="inputContainer">
+    <input type="text" #mesInput (keydown)="checkKeyInput($event, mesInput)">
+    <button mat-flat-button (click)="sendMessage(mesInput)">Send</button>
+  </div>
 </div>

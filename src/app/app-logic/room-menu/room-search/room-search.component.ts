@@ -1,8 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
-import {RoomService} from "../../../services/room.service";
-import {NavigationMonitoringService} from "../../../services/navigation-monitoring.service";
-import {User} from "../../../models/User";
+import {RoomService} from "../../../services/api/room.service";
+import {NavigationMonitoringService} from "../../../services/event/navigation-monitoring.service";
 
 @Component({
   selector: 'app-room-search',
@@ -11,7 +10,6 @@ import {User} from "../../../models/User";
 })
 export class RoomSearchComponent implements OnInit {
 
-  @Input() curUser: User;
   searchEmpty: boolean = false;
 
   constructor(private router: Router,
@@ -40,5 +38,10 @@ export class RoomSearchComponent implements OnInit {
       this.navigationMonitoringService.roomSearchListChanged(roomsInfo);
     });
     console.log(title);
+  }
+
+  checkKeyInput(event: KeyboardEvent, value: string) {
+    if (value.length != 0 && event.code === "Enter")
+      this.updateRoomList(value);
   }
 }

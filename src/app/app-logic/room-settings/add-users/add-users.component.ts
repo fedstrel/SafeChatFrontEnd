@@ -1,18 +1,17 @@
-import {ChangeDetectorRef, Component, Input, OnInit, OnDestroy} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
 import {Room} from "../../../models/Room";
 import {User} from "../../../models/User";
-import {NavigationMonitoringService} from "../../../services/navigation-monitoring.service";
-import {UserService} from "../../../services/user.service";
+import {NavigationMonitoringService} from "../../../services/event/navigation-monitoring.service";
+import {UserService} from "../../../services/api/user.service";
 
 @Component({
   selector: 'app-add-users',
   templateUrl: './add-users.component.html',
   styleUrls: ['./add-users.component.css']
 })
-export class AddUsersComponent implements OnInit, OnDestroy{
+export class AddUsersComponent implements OnInit{
 
   @Input() curRoom: Room;
-
 
   userIdList: number[];
   hintUserList: User[];
@@ -24,10 +23,6 @@ export class AddUsersComponent implements OnInit, OnDestroy{
 
   ngOnInit(): void {
     this.userIdList = [];
-  }
-
-  ngOnDestroy() {
-
   }
 
   showHintByName(username: string) {

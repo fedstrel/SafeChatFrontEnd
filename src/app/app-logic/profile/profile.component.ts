@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {User} from "../../models/User";
-import {UserService} from "../../services/user.service";
+import {UserService} from "../../services/api/user.service";
 import {Router} from "@angular/router";
-import {AuthMonitoringService} from "../../services/auth-monitoring.service";
-import {TokenStorageService} from "../../services/token-storage.service";
+import {AuthMonitoringService} from "../../services/event/auth-monitoring.service";
+import {TokenStorageService} from "../../services/global/token-storage.service";
 
 @Component({
   selector: 'app-profile',
@@ -23,6 +23,9 @@ export class ProfileComponent implements OnInit {
       .subscribe(data => {
         this.user = data;
         console.log(data);
+      }, error => {
+        console.log("profile not found");
+        this.tokenService.logOut();
       });
   }
 

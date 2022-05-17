@@ -1,5 +1,6 @@
 <div class="searchContainer">
-  <input type="text" (input)="changeEmpty(searchField.value)" #searchField>
+  <input type="text" (input)="changeEmpty(searchField.value)"
+                     (keydown)="checkKeyInput($event, searchField.value)" #searchField>
   <div *ngIf="!searchEmpty; then addBlock else searchBlock"></div>
 
   <ng-template #searchBlock>

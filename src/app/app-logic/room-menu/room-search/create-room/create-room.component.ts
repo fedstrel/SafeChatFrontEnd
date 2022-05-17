@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
-import {RoomService} from "../../../../services/room.service";
-import {TokenStorageService} from "../../../../services/token-storage.service";
+import {RoomService} from "../../../../services/api/room.service";
+import {TokenStorageService} from "../../../../services/global/token-storage.service";
 import {DecodedToken} from "../../../../models/DecodedToken";
 import jwtDecode from "jwt-decode";
-import {NavigationMonitoringService} from "../../../../services/navigation-monitoring.service";
+import {NavigationMonitoringService} from "../../../../services/event/navigation-monitoring.service";
 
 @Component({
   selector: 'app-create-room',

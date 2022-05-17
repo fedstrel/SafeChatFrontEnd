@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthMonitoringService} from "./services/auth-monitoring.service";
-import {TokenStorageService} from "./services/token-storage.service";
+import {AuthMonitoringService} from "./services/event/auth-monitoring.service";
+import {TokenStorageService} from "./services/global/token-storage.service";
 
 @Component({
   selector: 'app-root',

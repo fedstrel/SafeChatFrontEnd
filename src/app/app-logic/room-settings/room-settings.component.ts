@@ -1,12 +1,14 @@
 import jwtDecode from 'jwt-decode';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Room} from "../../models/Room";
-import {RoomService} from "../../services/room.service";
+import {RoomService} from "../../services/api/room.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Subscription} from "rxjs";
-import {TokenStorageService} from "../../services/token-storage.service";
+import {TokenStorageService} from "../../services/global/token-storage.service";
 import {DecodedToken} from "../../models/DecodedToken";
-import {NavigationMonitoringService} from "../../services/navigation-monitoring.service";
+import {NavigationMonitoringService} from "../../services/event/navigation-monitoring.service";
+import {WebsocketNotificationService} from "../../services/global/websocket-notification.service";
+import {UserService} from "../../services/api/user.service";
 
 @Component({
   selector: 'app-room-settings',
@@ -16,6 +18,7 @@ import {NavigationMonitoringService} from "../../services/navigation-monitoring.
 export class RoomSettingsComponent implements OnInit, OnDestroy {
 
   private routeSub!: Subscription;
+  private addSub!: Subscription;
   private decodedToken!: DecodedToken;
 
   userButtonName: string = "Add users";
@@ -25,7 +28,9 @@ export class RoomSettingsComponent implements OnInit, OnDestroy {
   room!: Room;
 
   constructor(private roomService: RoomService,
+              private userService: UserService,
               private navigationMonitoringService: NavigationMonitoringService,
+              private wsService: WebsocketNotificationService,
               private tokenService: TokenStorageService,
               private router: Router,
               private route: ActivatedRoute) { }
@@ -35,14 +40,18 @@ export class RoomSettingsComponent implements OnInit, OnDestroy {
       this.roomService.getRoomById(params['id']).subscribe(roomData => {
         this.room = roomData;
         this.setAdmin();
+        this.wsService.connect(this.decodedToken);
         this.roomLoaded = Promise.resolve(true);
       });
 
-      this.navigationMonitoringService.confirmUserAdditionEvent.subscribe((userInfo) => {
+      this.addSub = this.navigationMonitoringService.confirmUserAdditionEvent.subscribe((userInfo) => {
         this.roomService.addUsersToRoom(params['id'], userInfo).subscribe(() => {
+          for (let userId of userInfo)
+            this.wsService.notifyAboutChange(userId);
           console.log('addition completed');
         });
         this.showAddUsers = false;
+        this.userButtonName = "Add users";
       });
     });
 
@@ -50,6 +59,8 @@ export class RoomSettingsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.routeSub.unsubscribe();
+    this.addSub.unsubscribe();
+    this.wsService.disconnect();
   }
 
   setAdmin(): void {
@@ -70,12 +81,16 @@ export class RoomSettingsComponent implements OnInit, OnDestroy {
   }
 
   deleteRoom() {
-    this.roomService.deleteRoom(this.room.id, this.decodedToken.id)
-      .subscribe(data => {
-        console.log(data);
+    this.userService.getAllUsersByRoomId(this.room.id).subscribe(users => {
+      this.roomService.deleteRoom(this.room.id, this.decodedToken.id).subscribe(() => {
+        for (let user of users) {
+          console.log("notify user " + user.id);
+          this.wsService.notifyAboutChange(user.id);
+        }
         this.navigationMonitoringService.roomListChanged("room deleted");
         this.router.navigate(['/profile']);
       });
+    });
   }
 
   leaveRoom() {

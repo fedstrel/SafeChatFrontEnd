@@ -33,7 +33,7 @@ export class TokenStorageService {
   }
 
   logOut(): void {
-    this.router.navigate(["/"]);
     window.sessionStorage.clear();
+    this.router.navigate(["/"]);
   }
 }

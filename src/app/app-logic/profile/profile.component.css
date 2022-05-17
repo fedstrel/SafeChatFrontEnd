@@ -1,3 +1,8 @@
+* {
+  color: #fff;
+  font-size: 14pt;
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -5,7 +10,7 @@
   align-content: space-between;
   height: 100%;
   margin: 0;
-  padding: 0px;
+  padding: 0;
 }
 
 .rec {
@@ -22,19 +27,18 @@
 }
 
 .infoRecText {
-  border: #fff solid 2px;
-  border-radius: 20px;
+  border-top: #fff solid 1px;
+  border-bottom: #fff solid 1px;
 }
 
 .textContainer {
-  color: #fff;
-  margin: auto 5px;
+  margin: 5px 5px;
 }
 
 .buttonContainer {
   display: flex;
   justify-content: center;
-  align-content: end;
+  align-content: flex-end;
 }
 
 button {
@@ -42,7 +46,6 @@ button {
   width: 100%;
   border: none;
   height: 50px;
-  font-size: 14pt;
   font-weight: bold;
   padding-top: -50px;
   cursor: pointer;

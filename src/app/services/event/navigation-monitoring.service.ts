@@ -1,5 +1,5 @@
 import {EventEmitter, Injectable, Output} from '@angular/core';
-import {Room} from "../models/Room";
+import {Room} from "../../models/Room";
 
 @Injectable({
   providedIn: 'root'

@@ -1,39 +1,43 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {Room} from "../../models/Room";
-import {UserService} from "../../services/user.service";
-import {RoomService} from "../../services/room.service";
-import {User} from "../../models/User";
+import {RoomService} from "../../services/api/room.service";
 import {Router} from "@angular/router";
-import {NavigationMonitoringService} from "../../services/navigation-monitoring.service";
+import {NavigationMonitoringService} from "../../services/event/navigation-monitoring.service";
+import {TokenStorageService} from "../../services/global/token-storage.service";
+import {DecodedToken} from "../../models/DecodedToken";
+import jwtDecode from "jwt-decode";
+import {WebsocketNotificationService} from "../../services/global/websocket-notification.service";
 
 @Component({
   selector: 'app-room-menu',
   templateUrl: './room-menu.component.html',
   styleUrls: ['./room-menu.component.css']
 })
-export class RoomMenuComponent implements OnInit {
+export class RoomMenuComponent implements OnInit, OnDestroy {
 
   rooms!: Room[];
   searchRooms: Room[];
-  curUser!: User;
+  decodedToken: DecodedToken;
 
-  constructor(private userService: UserService,
+  constructor(private tokenService: TokenStorageService,
               private roomService: RoomService,
+              private wsService: WebsocketNotificationService,
               private navigationMonitoringService: NavigationMonitoringService,
               private changeDetectorRef: ChangeDetectorRef,
               private router: Router) { }
 
   ngOnInit(): void {
-    this.userService.getCurrentUser()
-      .subscribe((data) => {
-        console.log(data);
-        this.curUser = data;
-        this.updateRooms(this.curUser.id);
-      });
+    this.decodedToken = jwtDecode<DecodedToken>(this.tokenService.getUser());
+    this.updateRooms();
+    this.wsService.connect(this.decodedToken);
+    this.wsService.notificationReceivedEvent.subscribe(() => {
+      this.updateRooms();
+      this.changeDetectorRef.detectChanges();
+    });
 
     this.navigationMonitoringService.roomListChangedEvent
       .subscribe(() => {
-        this.updateRooms(this.curUser.id);
+        this.updateRooms();
     });
 
     this.navigationMonitoringService.roomSearchListChangedEvent
@@ -43,8 +47,12 @@ export class RoomMenuComponent implements OnInit {
       })
   }
 
-  updateRooms(userId: number): void {
-    this.roomService.getAllRoomsByUserId(userId)
+  ngOnDestroy() {
+    this.wsService.disconnect();
+  }
+
+  updateRooms(): void {
+    this.roomService.getAllRoomsByUserId(this.decodedToken.id)
       .subscribe((data) => {
         console.log(data);
         this.rooms = data;
@@ -76,7 +84,7 @@ export class RoomMenuComponent implements OnInit {
   }
 
   addRoom(roomId: number): void {
-    this.roomService.addUsersToRoom(roomId, [this.curUser.id]);
+    this.roomService.addUsersToRoom(roomId, [this.decodedToken.id]);
     this.router.navigate(['/room', roomId]);
   }
 

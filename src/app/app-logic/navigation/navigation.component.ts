@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {User} from "../../models/User";
-import {TokenStorageService} from "../../services/token-storage.service";
+import {TokenStorageService} from "../../services/global/token-storage.service";
 import {Router} from "@angular/router";
-import {UserService} from "../../services/user.service";
-import {AuthMonitoringService} from "../../services/auth-monitoring.service";
+import {UserService} from "../../services/api/user.service";
+import {AuthMonitoringService} from "../../services/event/auth-monitoring.service";
 
 @Component({
   selector: 'app-navigation',
