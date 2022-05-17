@@ -5,7 +5,7 @@ const path = require('path');
 const app = express();
 
 // Serve only the static files form the dist directory
-app.use(express.static(path.join(__dirname)));
+app.use(express.static(path.join(__dirname, '/dist/safe-chat-front-end')));
 
 app.get('/*', function(req,res) {
 
