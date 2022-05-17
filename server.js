@@ -9,7 +9,7 @@ app.use(express.static(__dirname + '/dist/safe-chat-front-end'));
 
 app.get('/*', function(req,res) {
 
-  res.sendFile(path.join(__dirname + '/index.html'));
+  res.sendFile(path.join(__dirname + 'dist/safe-chat-front-end/index.html'));
 });
 
 // Start the app by listening on the default Heroku port
