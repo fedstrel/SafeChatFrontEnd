@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 
-const ROOM_API = 'http://localhost:8080/room/'
+const ROOM_API = 'https://fathomless-ridge-03736.herokuapp.com/room/'
 
 @Injectable({
   providedIn: 'root'

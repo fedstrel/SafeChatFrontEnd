@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 
-const AUTH_API = 'http://localhost:8080/auth';
+const AUTH_API = 'https://fathomless-ridge-03736.herokuapp.com/auth';
 
 @Injectable({
   providedIn: 'root'
