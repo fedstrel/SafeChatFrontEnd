@@ -4,7 +4,7 @@ import {CompatClient, Stomp, StompConfig} from "@stomp/stompjs";
 import {DecodedToken} from "../../models/DecodedToken";
 import * as SockJS from "sockjs-client";
 
-const WS_ENDPOINT = "http://localhost:8080";
+const WS_ENDPOINT = "https://fathomless-ridge-03736.herokuapp.com";
 
 @Injectable({
   providedIn: 'root'
