@@ -7,7 +7,7 @@ const app = express();
 
 // Serve only the static files form the dist directory
 app.use(express.static(__dirname + '/dist/safe-chat-front-end'));
-app.use(cors());
+app.use(cors({origin: ['*']}));
 
 app.get('/*', function(req,res) {
 
