@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
@@ -40,18 +41,19 @@ import { AddUsersComponent } from './app-logic/room-settings/add-users/add-users
     CreateRoomComponent,
     AddUsersComponent
   ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        AppRoutingModule,
-        MaterialModule,
-        HttpClientModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MatTooltipModule,
-        MatSelectModule
-    ],
+  imports: [
+      BrowserModule,
+      BrowserAnimationsModule,
+      AppRoutingModule,
+      MaterialModule,
+      HttpClientModule,
+      FormsModule,
+      ReactiveFormsModule,
+      MatTooltipModule,
+      MatSelectModule
+  ],
   providers: [
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
     authInterceptorProviders,
     autherrorInterceptorProviders
   ],
