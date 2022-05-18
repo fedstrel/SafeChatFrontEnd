@@ -58,9 +58,11 @@ export class RoomSettingsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    console.log("destroy settings started");
     this.routeSub.unsubscribe();
     this.addSub.unsubscribe();
     this.wsService.disconnect();
+    console.log("destroy settings ended");
   }
 
   setAdmin(): void {

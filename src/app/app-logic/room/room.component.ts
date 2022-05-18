@@ -94,10 +94,11 @@ export class RoomComponent implements OnInit, OnDestroy, AfterContentChecked{
   }
 
   ngOnDestroy() {
-    console.log("room controller deleted");
+    console.log("room controller started deletion");
     this.routeSub.unsubscribe();
     this.wsService.disconnect();
     this.wsNService.disconnect();
+    console.log("room controller finished deletion");
   }
 
   leaveIfDeleted(userId: number, roomId: number) {
