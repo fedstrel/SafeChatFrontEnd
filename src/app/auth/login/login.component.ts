@@ -51,7 +51,6 @@ export class LoginComponent implements OnInit {
         this.tokenService.saveUser(data);
         this.authMonitoringService.userAuthenticated("user authenticated");
         this.router.navigate(['/profile']).then((value) => {console.log(value)});
-        window.location.reload();
       });
   }
 }

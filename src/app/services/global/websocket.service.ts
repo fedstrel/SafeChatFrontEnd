@@ -1,7 +1,7 @@
 import {EventEmitter, Injectable, Output} from '@angular/core';
 import {WSMessage} from "../../models/WSMessage";
 import * as SockJS from "sockjs-client";
-import {CompatClient, Stomp, StompConfig} from "@stomp/stompjs";
+import {CompatClient, Stomp, StompConfig, StompSubscription} from "@stomp/stompjs";
 import {DecodedToken} from "../../models/DecodedToken";
 
 const WS_ENDPOINT = 'https://fathomless-ridge-03736.herokuapp.com';
@@ -15,6 +15,7 @@ export class WebsocketService {
 
   public stompClient: CompatClient;
   private roomId: number;
+  private stompSub: StompSubscription;
 
   connect(roomId: number, token: DecodedToken) {
     this.roomId = roomId;
@@ -29,7 +30,7 @@ export class WebsocketService {
   }
 
   trySubscribing(roomId: number) {
-    this.stompClient.subscribe("/topic/messages/" + roomId, response => {
+    this.stompSub = this.stompClient.subscribe("/topic/messages/" + roomId, response => {
       let data = JSON.parse(response.body);
       let message = new WSMessage(data.message, data.senderId);
       this.messageReceivedEvent.emit(message);
@@ -45,6 +46,7 @@ export class WebsocketService {
   }
 
   disconnect() {
+    this.stompSub.unsubscribe();
     this.stompClient.disconnect();
   }
 }
