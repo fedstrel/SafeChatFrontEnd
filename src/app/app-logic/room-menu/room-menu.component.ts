@@ -77,10 +77,12 @@ export class RoomMenuComponent implements OnInit, OnDestroy {
 
   navigateToRoom(roomId: number): void {
     this.router.navigate(['/room', roomId]);
+    this.wsService.disconnect();
   }
 
   navigateToRoomSettings(roomId: number): void {
     this.router.navigate(['/room-settings', roomId]);
+    this.wsService.disconnect();
   }
 
   addRoom(roomId: number): void {
