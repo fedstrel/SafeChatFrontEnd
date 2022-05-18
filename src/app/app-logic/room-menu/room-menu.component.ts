@@ -29,6 +29,7 @@ export class RoomMenuComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.decodedToken = jwtDecode<DecodedToken>(this.tokenService.getUser());
     this.updateRooms();
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {return false;};
     this.wsService.connect(this.decodedToken);
     this.wsService.notificationReceivedEvent.subscribe(() => {
       this.updateRooms();
@@ -77,12 +78,10 @@ export class RoomMenuComponent implements OnInit, OnDestroy {
 
   navigateToRoom(roomId: number): void {
     this.router.navigate(['/room', roomId]);
-    this.wsService.disconnect();
   }
 
   navigateToRoomSettings(roomId: number): void {
     this.router.navigate(['/room-settings', roomId]);
-    this.wsService.disconnect();
   }
 
   addRoom(roomId: number): void {
