@@ -23,16 +23,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.authMonitoringService.userAuthenticatedEvent
-      .subscribe(() => {
-        this.isLoggedIn = true;
-        console.log("authenticated");
-      });
-    this.authMonitoringService.userLoggedOutEvent
-      .subscribe(() => {
-        this.isLoggedIn = false;
-        console.log("logged out");
-      });
+    this.subscribeForEvents();
 
     if(this.isLoggedIn) {
       this.userService.getCurrentUser()
@@ -44,6 +35,17 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.router.dispose();
+  }
+
+  subscribeForEvents() {
+    this.authMonitoringService.userAuthenticatedEvent
+      .subscribe(() => {
+        this.isLoggedIn = true;
+      });
+    this.authMonitoringService.userLoggedOutEvent
+      .subscribe(() => {
+        this.isLoggedIn = false;
+      });
   }
 
   logout(): void {

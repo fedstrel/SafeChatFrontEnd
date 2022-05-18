@@ -10,6 +10,7 @@
             <mat-icon>search</mat-icon>
           </button>
         </div>
+
         <div *ngFor="let user of hintUserList">
           <div class="userContainer">
             <p>{{user.firstname + ' ' + user.lastname}}</p>
@@ -19,6 +20,7 @@
           </div>
         </div>
       </div>
+
       <div class="confirmedUsersContainer">
         <h3>Confirmed users</h3>
         <div *ngFor="let userId of userIdList">

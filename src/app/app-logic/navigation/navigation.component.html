@@ -3,28 +3,24 @@
 
 <mat-toolbar color="primary">
   <div *ngIf="isLoggedIn; then profileBlock else safeChatBlock"></div>
-
-  <ng-template #profileBlock>
-    <span routerLink="/profile" class="routerButtonLeft">Profile</span>
-  </ng-template>
-
-  <ng-template #safeChatBlock>
-    <span routerLink="/" class="routerButtonLeft">SafeChat</span>
-  </ng-template>
+    <ng-template #profileBlock>
+      <span routerLink="/profile" class="routerButtonLeft">Profile</span>
+    </ng-template>
+    <ng-template #safeChatBlock>
+      <span routerLink="/" class="routerButtonLeft">SafeChat</span>
+    </ng-template>
 
   <span class="spacer"></span>
 
   <div *ngIf="!isLoggedIn; then loginBlock else logoutBlock"></div>
-
-  <ng-template #loginBlock>
-    <div routerLink="/login" class="routerButtonRight">
-      <p>Login</p>
-    </div>
-  </ng-template>
-  <ng-template #logoutBlock>
-    <button (click)="logout()" class="routerButtonRight">
-      <mat-icon color="primary">logout</mat-icon>
-    </button>
-  </ng-template>
-
+    <ng-template #loginBlock>
+      <div routerLink="/login" class="routerButtonRight">
+        <p>Login</p>
+      </div>
+    </ng-template>
+    <ng-template #logoutBlock>
+      <button (click)="logout()" class="routerButtonRight">
+        <mat-icon color="primary">logout</mat-icon>
+      </button>
+    </ng-template>
 </mat-toolbar>

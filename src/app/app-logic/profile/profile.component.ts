@@ -11,7 +11,7 @@ import {TokenStorageService} from "../../services/global/token-storage.service";
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  user!: User;
+  public user!: User;
 
   constructor(private userService: UserService,
               private tokenService: TokenStorageService,
@@ -23,7 +23,7 @@ export class ProfileComponent implements OnInit {
       .subscribe(data => {
         this.user = data;
         console.log(data);
-      }, error => {
+      }, () => {
         console.log("profile not found");
         this.tokenService.logOut();
       });

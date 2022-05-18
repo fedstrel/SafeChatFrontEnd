@@ -65,8 +65,6 @@ export class RegisterComponent implements OnInit {
           this.authMonitoringService.userAuthenticated("user authenticated");
           this.router.navigate(['/profile']).then((value) => {console.log(value)});
         });
-      }, error => {
-      console.log(error);
-    });
+      });
   }
 }

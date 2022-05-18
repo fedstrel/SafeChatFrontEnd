@@ -56,33 +56,12 @@ export class RoomComponent implements OnInit, OnDestroy, AfterContentChecked{
       this.decodedToken = jwtDecode<DecodedToken>(this.tokenService.getUser());
 
       this.leaveIfDeleted(this.decodedToken.id, params['id']);
-
-      this.interpreterService.roomService.getRoomById(params['id']).subscribe(room => {
-        this.curRoom = room;
-        this.interpreterService.roomService.getIfUserIsAdminOfTheRoom(this.decodedToken.id, room.id).subscribe(res => {
-          this.admin = res;
-        });
-        this.wsNService.connect(this.decodedToken);
-        this.wsNService.notificationReceivedEvent.subscribe(() => {
-          this.leaveIfDeleted(this.decodedToken.id, this.curRoom.id);
-        });
-      });
-
-      this.wsService.connect(params['id'], this.decodedToken);
-      this.wsService.messageReceivedEvent.subscribe((message) => {
-        this.showMessage(message);
-      });
-
-
-      this.messageService.getMessagesByRoomPageable(params['id'], this.curPage).subscribe(messages => {
-        this.oldRoomMessages = messages.content;
-        this.oldRoomMessages.reverse();
-      });
+      this.configRoomAndNotification(params['id']);
+      this.configWSService(params['id']);
+      this.loadMessages(params['id']);
     });
 
-    const that = this;
-    let elem = this.getHTMLElementOrBody("allMessagesContainer");
-    elem.addEventListener("scroll", function () {that.scrollHandler()}, false);
+    this.configScroll();
   }
 
   ngAfterContentChecked() {
@@ -94,11 +73,42 @@ export class RoomComponent implements OnInit, OnDestroy, AfterContentChecked{
   }
 
   ngOnDestroy() {
-    console.log("room controller started deletion");
     this.routeSub.unsubscribe();
     this.wsService.disconnect();
     this.wsNService.disconnect();
-    console.log("room controller finished deletion");
+  }
+
+  configRoomAndNotification(roomId: number) {
+    this.interpreterService.roomService.getRoomById(roomId).subscribe(room => {
+      this.curRoom = room;
+      this.interpreterService.roomService.getIfUserIsAdminOfTheRoom(this.decodedToken.id, room.id).subscribe(res => {
+        this.admin = res;
+      });
+      this.wsNService.connect(this.decodedToken);
+      this.wsNService.notificationReceivedEvent.subscribe(() => {
+        this.leaveIfDeleted(this.decodedToken.id, this.curRoom.id);
+      });
+    });
+  }
+
+  loadMessages(roomId: number) {
+    this.messageService.getMessagesByRoomPageable(roomId, this.curPage).subscribe(messages => {
+      this.oldRoomMessages = messages.content;
+      this.oldRoomMessages.reverse();
+    });
+  }
+
+  configWSService(roomId: number) {
+    this.wsService.connect(roomId, this.decodedToken);
+    this.wsService.messageReceivedEvent.subscribe((message) => {
+      this.showMessage(message);
+    });
+  }
+
+  configScroll() {
+    const that = this;
+    let elem = this.getHTMLElementOrBody("allMessagesContainer");
+    elem.addEventListener("scroll", function () {that.scrollHandler()}, false);
   }
 
   leaveIfDeleted(userId: number, roomId: number) {

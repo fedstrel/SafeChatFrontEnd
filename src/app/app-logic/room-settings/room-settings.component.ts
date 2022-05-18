@@ -37,22 +37,9 @@ export class RoomSettingsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.routeSub = this.route.params.subscribe(params => {
-      this.roomService.getRoomById(params['id']).subscribe(roomData => {
-        this.room = roomData;
-        this.setAdmin();
-        this.wsService.connect(this.decodedToken);
-        this.roomLoaded = Promise.resolve(true);
-      });
+      this.getRoom(params['id']);
 
-      this.addSub = this.navigationMonitoringService.confirmUserAdditionEvent.subscribe((userInfo) => {
-        this.roomService.addUsersToRoom(params['id'], userInfo).subscribe(() => {
-          for (let userId of userInfo)
-            this.wsService.notifyAboutChange(userId);
-          console.log('addition completed');
-        });
-        this.showAddUsers = false;
-        this.userButtonName = "Add users";
-      });
+      this.subscribeToAdditionEvent(params['id']);
     });
 
   }
@@ -63,6 +50,27 @@ export class RoomSettingsComponent implements OnInit, OnDestroy {
     this.addSub.unsubscribe();
     this.wsService.disconnect();
     console.log("destroy settings ended");
+  }
+
+  getRoom(roomId: number) {
+    this.roomService.getRoomById(roomId).subscribe(roomData => {
+      this.room = roomData;
+      this.setAdmin();
+      this.wsService.connect(this.decodedToken);
+      this.roomLoaded = Promise.resolve(true);
+    });
+  }
+
+  subscribeToAdditionEvent(roomId: number) {
+    this.addSub = this.navigationMonitoringService.confirmUserAdditionEvent.subscribe((userInfo) => {
+      this.roomService.addUsersToRoom(roomId, userInfo).subscribe(() => {
+        for (let userId of userInfo)
+          this.wsService.notifyAboutChange(userId);
+        console.log('addition completed');
+      });
+      this.showAddUsers = false;
+      this.userButtonName = "Add users";
+    });
   }
 
   setAdmin(): void {

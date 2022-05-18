@@ -42,17 +42,15 @@
   </div>
 
   <div *ngIf="admin; then deleteBlock else leaveBlock"></div>
-
-  <ng-template #deleteBlock>
-    <div class="buttonContainer">
-      <button class="addUsers" (click)="addUsers()">{{userButtonName}}</button>
-      <button (click)="deleteRoom()">Delete room</button>
-    </div>
-  </ng-template>
-
-  <ng-template #leaveBlock>
-    <div class="buttonContainer">
-      <button (click)="leaveRoom()">Leave room</button>
-    </div>
-  </ng-template>
+    <ng-template #deleteBlock>
+      <div class="buttonContainer">
+        <button class="addUsers" (click)="addUsers()">{{userButtonName}}</button>
+        <button (click)="deleteRoom()">Delete room</button>
+      </div>
+    </ng-template>
+    <ng-template #leaveBlock>
+      <div class="buttonContainer">
+        <button (click)="leaveRoom()">Leave room</button>
+      </div>
+    </ng-template>
 </div>

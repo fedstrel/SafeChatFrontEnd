@@ -29,27 +29,36 @@ export class RoomMenuComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.decodedToken = jwtDecode<DecodedToken>(this.tokenService.getUser());
     this.updateRooms();
-    this.router.routeReuseStrategy.shouldReuseRoute = function () {return false;};
-    this.wsService.connect(this.decodedToken);
-    this.wsService.notificationReceivedEvent.subscribe(() => {
-      this.updateRooms();
-      this.changeDetectorRef.detectChanges();
-    });
 
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {return false;};
+
+    this.configWSService();
+    this.subscribeToEvents();
+  }
+
+  ngOnDestroy() {
+    this.wsService.disconnect();
+  }
+
+  subscribeToEvents() {
     this.navigationMonitoringService.roomListChangedEvent
       .subscribe(() => {
         this.updateRooms();
-    });
+      });
 
     this.navigationMonitoringService.roomSearchListChangedEvent
       .subscribe((roomsInfo) => {
         this.updateSearchRooms(roomsInfo);
         this.changeDetectorRef.detectChanges();
-      })
+      });
   }
 
-  ngOnDestroy() {
-    this.wsService.disconnect();
+  configWSService() {
+    this.wsService.connect(this.decodedToken);
+    this.wsService.notificationReceivedEvent.subscribe(() => {
+      this.updateRooms();
+      this.changeDetectorRef.detectChanges();
+    });
   }
 
   updateRooms(): void {

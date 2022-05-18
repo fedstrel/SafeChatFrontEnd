@@ -1,4 +1,5 @@
 <h1>{{curRoom ? curRoom.name : ""}}</h1>
+
 <div class="allMessagesContainer" id="allMessagesContainer">
   <div *ngFor = "let message of oldRoomMessages">
     <div *ngIf="message.user.id == decodedToken.id; then rightBlock else leftBlock"></div>
@@ -10,7 +11,6 @@
           </div>
         </div>
       </ng-template>
-
       <ng-template #leftBlock>
         <div class="mesWrapperLeft">
           <div class="mesContainer">
@@ -20,7 +20,6 @@
         </div>
       </ng-template>
   </div>
-
 
   <div *ngFor = "let message of roomMessages">
     <div *ngIf="message.senderId == decodedToken.id || message.senderId == 1; then rrightBlock else lleftBlock"></div>
