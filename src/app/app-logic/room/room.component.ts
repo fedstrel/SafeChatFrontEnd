@@ -94,6 +94,7 @@ export class RoomComponent implements OnInit, OnDestroy, AfterContentChecked{
   }
 
   ngOnDestroy() {
+    console.log("room controller deleted");
     this.routeSub.unsubscribe();
     this.wsService.disconnect();
     this.wsNService.disconnect();
@@ -108,6 +109,8 @@ export class RoomComponent implements OnInit, OnDestroy, AfterContentChecked{
 
   sendMessage(mesInput: HTMLInputElement) {
     let text = mesInput.value.trim();
+    if (text.length == 0)
+      return;
     if (text.charAt(0) !== "/") {
       if (this.curRoom.roomType.toString() == "ROOM_TYPE_CHANNEL" && !this.admin) {
         this.showMessage(new WSMessage("Not allowed to write to the channel", "1"));
