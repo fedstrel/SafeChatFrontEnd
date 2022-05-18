@@ -6,45 +6,31 @@
     <form [formGroup]="registerForm">
       <div class="container">
         <div class="inputClass">
-          <mat-form-field appearance="fill">
             <input matInput formControlName="firstname" placeholder="Firstname">
-          </mat-form-field>
         </div>
 
         <div class="inputClass">
-          <mat-form-field appearance="fill">
             <input matInput formControlName="lastname" placeholder="Lastname">
-          </mat-form-field>
         </div>
 
         <div class="inputClass">
-          <mat-form-field appearance="fill">
             <input matInput formControlName="username" placeholder="Username">
-          </mat-form-field>
         </div>
 
         <div class="inputClass">
-          <mat-form-field appearance="fill">
             <input matInput type="password" formControlName="password" placeholder="Password">
-          </mat-form-field>
         </div>
 
         <div class="inputClass">
-          <mat-form-field appearance="fill">
             <input matInput type="password" formControlName="confirmPassword" placeholder="Confirm your password">
-          </mat-form-field>
         </div>
 
         <div class="inputClass">
-          <mat-form-field appearance="fill">
             <input matInput formControlName="email" placeholder="Email">
-          </mat-form-field>
         </div>
 
         <div class="inputClass">
-          <mat-form-field appearance="fill">
             <input matInput formControlName="info" placeholder="About you...">
-          </mat-form-field>
         </div>
 
         <div class="controls">
@@ -53,8 +39,7 @@
                   mat-flat-button color="primary">
             Register
           </button>
-          <button mat-flat-button
-                  (click)="navigateToLogin()"
+          <button (click)="navigateToLogin()"
                   mat-flat-button color="primary">
             Login
           </button>

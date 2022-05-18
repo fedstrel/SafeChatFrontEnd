@@ -14,12 +14,12 @@ export class ErrorInterceptorService implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(catchError(err => {
+      console.log(err.error.message_0);
       if (err.status == 401) {
         this.tokenService.logOut();
-        console.log("oh sorry i'm shit");
       }
 
-      const error = err.error.message || err.statusText;
+      const error = err.error.message_0 || err.statusText;
       this.notificationService.showSnackBar(error);
       return throwError(error);
     }))

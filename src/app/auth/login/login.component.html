@@ -1,22 +1,18 @@
 <div class="wrapper">
   <div class="login-page">
 
-    <h2 style="color: #fff;">Login</h2>
+    <h1 style="color: #fff;">Login</h1>
 
     <form [formGroup]="loginForm" class="formClass">
     <div class="container">
       <div class="inputClassWrapperWrapper">
         <div class="inputClassWrapper">
           <div class="inputClass">
-            <mat-form-field appearance="fill">
-              <input matInput formControlName="username" placeholder="Username">
-            </mat-form-field>
+            <input matInput formControlName="username" placeholder="Username">
           </div>
 
           <div class="inputClass">
-            <mat-form-field appearance="fill">
-              <input matInput type="password" formControlName="password" placeholder="Password">
-            </mat-form-field>
+            <input matInput type="password" formControlName="password" placeholder="Password">
           </div>
         </div>
       </div>
