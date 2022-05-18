@@ -85,8 +85,19 @@ export class RoomMenuComponent implements OnInit, OnDestroy {
   }
 
   addRoom(roomId: number): void {
-    this.roomService.addUsersToRoom(roomId, [this.decodedToken.id]);
-    this.router.navigate(['/room', roomId]);
+    this.roomService.addUsersToRoom(roomId, [this.decodedToken.id]).subscribe(() => {
+      this.searchRooms.splice(this.findRoomIndexById(this.searchRooms, roomId), 1);
+      this.updateRooms();
+      this.changeDetectorRef.detectChanges();
+      this.router.navigate(['/room', roomId]);
+    });
   }
 
+  findRoomIndexById(rooms: Room[], roomId: number): number {
+    for (let i = 0; i < rooms.length; i++) {
+      if (rooms[i].id == roomId)
+        return i;
+    }
+    return -1;
+  }
 }
