@@ -3,6 +3,7 @@ import {Room} from "../../../models/Room";
 import {User} from "../../../models/User";
 import {NavigationMonitoringService} from "../../../services/event/navigation-monitoring.service";
 import {UserService} from "../../../services/api/user.service";
+import {ShortUser} from "../../../models/ShortUser";
 
 @Component({
   selector: 'app-add-users',
@@ -13,7 +14,7 @@ export class AddUsersComponent implements OnInit{
 
   @Input() curRoom: Room;
 
-  userIdList: number[];
+  userForAdditionList: ShortUser[];
   hintUserList: User[];
 
   constructor(private navigationMonitoringService: NavigationMonitoringService,
@@ -22,7 +23,7 @@ export class AddUsersComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.userIdList = [];
+    this.userForAdditionList = [];
   }
 
   showHintByName(username: string) {
@@ -36,19 +37,22 @@ export class AddUsersComponent implements OnInit{
   }
 
   addUserIdToList(user: User) {
-    if (this.userIdList.indexOf(user.id) < 0)
-      this.userIdList.push(user.id);
+    if (this.userForAdditionList.indexOf(ShortUser.toShortUser(user)) < 0)
+      this.userForAdditionList.push(ShortUser.toShortUser(user));
     this.hintUserList.splice(this.hintUserList.indexOf(user), 1);
     this.changeDetectorRef.detectChanges();
   }
 
-  deleteUserIdFromList(userId: number) {
-    this.userIdList.splice(this.userIdList.indexOf(userId), 1);
-    console.log(this.userIdList);
+  deleteUserIdFromList(user: ShortUser) {
+    this.userForAdditionList.splice(this.userForAdditionList.indexOf(user), 1);
+    console.log(this.userForAdditionList);
     this.changeDetectorRef.detectChanges();
   }
 
   confirmAddition() {
-    this.navigationMonitoringService.confirmUserAddition(this.userIdList);
+    this.navigationMonitoringService.confirmUserAddition(this.userForAdditionList.map
+      (shortUser => {
+        return shortUser.id;
+      }));
   }
 }

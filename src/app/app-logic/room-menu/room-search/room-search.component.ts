@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {RoomService} from "../../../services/api/room.service";
 import {NavigationMonitoringService} from "../../../services/event/navigation-monitoring.service";
+import {DecodedToken} from "../../../models/DecodedToken";
 
 @Component({
   selector: 'app-room-search',
@@ -10,6 +11,7 @@ import {NavigationMonitoringService} from "../../../services/event/navigation-mo
 })
 export class RoomSearchComponent implements OnInit {
 
+  @Input() token: DecodedToken;
   searchEmpty: boolean = false;
 
   constructor(private router: Router,
@@ -34,6 +36,13 @@ export class RoomSearchComponent implements OnInit {
   }
 
   updateRoomList(title: string): void {
+    if (title.length == 0) {
+      this.roomService.getPublicRoomsThatAreNotVisited(this.token.id).subscribe((roomsInfo) => {
+        this.navigationMonitoringService.roomSearchListChanged(roomsInfo);
+      });
+      return;
+    }
+
     this.roomService.getAllRoomsContainingName(title).subscribe((roomsInfo) => {
       this.navigationMonitoringService.roomSearchListChanged(roomsInfo);
     });
@@ -41,7 +50,10 @@ export class RoomSearchComponent implements OnInit {
   }
 
   checkKeyInput(event: KeyboardEvent, value: string) {
-    if (value.length != 0 && event.code === "Enter")
+    console.log(event.code)
+    if (event.code === "Backspace" && value.length == 0)
+      this.navigationMonitoringService.roomSearchListChanged([]);
+    if (event.code === "Enter")
       this.updateRoomList(value);
   }
 }

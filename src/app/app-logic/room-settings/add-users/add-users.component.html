@@ -23,10 +23,10 @@
 
       <div class="confirmedUsersContainer">
         <h3>Confirmed users</h3>
-        <div *ngFor="let userId of userIdList">
+        <div *ngFor="let user of userForAdditionList">
           <div class="userContainer">
-            <p>{{userId}}</p>
-            <button class="cardButton" (click)="deleteUserIdFromList(userId)">
+            <p>{{user.firstname + ' ' + user.lastname}}</p>
+            <button class="cardButton" (click)="deleteUserIdFromList(user)">
               <mat-icon>delete</mat-icon>
             </button>
           </div>

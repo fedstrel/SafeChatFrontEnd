@@ -19,8 +19,8 @@ export class RoomService {
     return this.httpclient.get(ROOM_API + 'search=' + name);
   }
 
-  getAllRoomsByUserIdAndName(userId: number, name: string): Observable<any> {
-    return this.httpclient.get(ROOM_API + 'search=' + name + '/' + userId);
+  getPublicRoomsThatAreNotVisited(userId: number): Observable<any> {
+    return this.httpclient.get(ROOM_API + 'user/' + userId + '/not-visited');
   }
 
   getAllRoomsByUserId(userId: number): Observable<any> {

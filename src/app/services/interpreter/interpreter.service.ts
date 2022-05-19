@@ -25,16 +25,16 @@ export class InterpreterService {
     let name = text.indexOf(" ") == -1 ? text : text.substring(0, text.indexOf(" "));
     console.log(name);
     switch (name) {
-      case "help": {
+      case InterpretCommands[0]: {
         console.log(this.help());
         return this.help();
       }
-      case "room_users": {
+      case InterpretCommands[1]: {
         if (text.substring(name.length).length <= 0)
           return this.roomUsers(curRoomId);
         return this.roomUsers(+text.substring(name.length));
       }
-      case "delete_users": {
+      case InterpretCommands[2]: {
         if (text.substring(name.length).length <= 0)
           return of("No arguments were found");
         return this.deleteUsers(curRoomId, curUserId, this.parseParams(text.substring(name.length)));
@@ -65,7 +65,7 @@ export class InterpreterService {
           }
 
           for (let user of users) {
-            res = res.concat(user.firstname, " ", user.lastname, "\n");
+            res = res.concat(user.firstname, " ", user.lastname, " | id = ", user.id, "\n");
           }
           subscriber.next(res);
         });
@@ -74,6 +74,11 @@ export class InterpreterService {
 
   public deleteUsers(roomId: number, curUserId: number, userIds: number[]): Observable<string> {
     return new Observable<string>(subscriber => {
+      if (this.arrayIncludesUser(userIds, curUserId)) {
+        console.log("trying to delete yourself");
+        subscriber.next("Can't delete yourself.");
+        return;
+      }
       this.roomService.deleteUsersFromRoom(roomId, curUserId, userIds).subscribe(response => {
         for (let userId of userIds)
           this.wsNotificationService.notifyAboutChange(userId);
@@ -89,5 +94,15 @@ export class InterpreterService {
       res.push(parseInt(num));
     }
     return res;
+  }
+
+  //.includes didn't want to work ¯＼_(ツ)_/¯
+  arrayIncludesUser(userIds: number[], userId: number): boolean {
+    for (let id of userIds) {
+      console.log();
+      if (id == userId)
+        return true;
+    }
+    return false;
   }
 }
